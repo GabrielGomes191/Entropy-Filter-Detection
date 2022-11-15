@@ -1,0 +1,19 @@
+#This code apllies the entropy filter on an image:
+
+import matplotlib.pyplot as plt
+from skimage import io
+from skimage.filters.rank import entropy
+from skimage.morphology import disk
+import numpy as np
+from skimage.filters import threshold_otsu
+import cv2
+
+img = cv2.imread("ImageBoat.png")
+
+img_gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+
+entropy_img = entropy(img_gray, disk(5))
+
+key = cv2.waitKey()
+
+plt.imshow(entropy_img)
