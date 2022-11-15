@@ -1,0 +1,33 @@
+#This code apllies the entropy filter on an video:
+from skimage.io import imread, imshow
+import matplotlib.pyplot as plt
+from skimage import io
+from skimage.filters.rank import entropy
+from skimage.morphology import disk
+import numpy as np
+from skimage.filters import threshold_otsu
+import cv2
+
+cap = cv2.VideoCapture('VideoBoat.mp4')
+
+count = 0
+
+while(cap.isOpened()):
+    ret, frame = cap.read()
+    
+    resize = cv2.resize(frame, (700, 400))
+    
+    img = cv2.cvtColor(resize, cv2.COLOR_BGR2GRAY)
+
+    entropy_img = entropy(img, disk(1))
+
+    if cv2.waitKey(5) & 0xFF == ord('q'):
+        break 
+    
+    count += 1
+
+    cv2.imshow("Gray", img)
+    cv2.imshow("Ola", entropy_img)
+
+cap.release()
+cv2.destroyAllWindows()
